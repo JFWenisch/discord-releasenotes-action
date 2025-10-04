@@ -1,9 +1,11 @@
 # discord-releasenotes-action
 Action to send existing GitHub release info to a Discord channel via webhook
 
+![Preview](docs/preview.png)
+
 ## 🎯 Purpose
 
-This action is designed to **bridge private GitHub repositories with public Discord communities**. While to-date existing action only work with public repositories and make use of the `on: release` trigger, this versatile action uses the provided token to fetch the latest release metadata—including tag, name, body, and formats it into a clean, multi-line Discord embed. 
+This action is designed to allow **sharing private GitHub Release Notes within a Discord channel**. While to-date existing action only work with public repositories and make use of the `on: release` trigger, this versatile action uses the provided token to fetch the latest release metadata—including tag, name, body, and formats it into a clean, multi-line Discord embed. 
 
 (Yes, this action also works with public repositores)
 
