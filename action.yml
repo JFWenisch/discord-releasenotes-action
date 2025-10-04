@@ -1,5 +1,5 @@
 name: "Private GitHub Release Notes to Discord"
-description: "“Effortlessly send private GitHub releases notes to Discord as rich embeds with full Markdown support and custom branding."
+description: "Effortlessly send private GitHub releases notes to Discord as rich embeds with full Markdown support and custom branding."
 branding:
   icon: 'file-text'
   color: 'black'
