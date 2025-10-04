@@ -22,7 +22,7 @@ This action is designed to **bridge private GitHub repositories with public Disc
   uses: jfwenisch/discord-releasenotes-action@v1
   with:
     webhook: ${{ secrets.DISCORD_WEBHOOK }}
-    github_token: ${{ secrets.GITHUB_TOKEN }}
+    github_token: ${{ secrets.GITHUBTOKEN }}
 
 ```
 

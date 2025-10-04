@@ -32,7 +32,7 @@ runs:
 
         payload=$(jq -n \
           --arg username " ${{ inputs.username }}" \
-          --arg avatar_url ${{ inputs.avatar_url }}" \
+          --arg avatar_url " ${{ inputs.avatar_url }}" \
           --arg title "$release_name" \
           --arg url "$release_url" \
           --arg description "$release_body" \
