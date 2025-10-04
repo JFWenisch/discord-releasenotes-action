@@ -1,0 +1,50 @@
+name: "Discord Release Notifier"
+description: "Sends release info to Discord via webhook"
+inputs:
+  webhook:
+    description: "Discord webhook URL"
+    required: true
+  github_token:
+    description: "GitHub Accesstoken to fetch release info"
+    required: true
+  username:
+    description: "Username that will be displayed as author in Discord"
+    required: false
+    default: GitHub
+  avatar_url:
+    description: "URL to image that will be displayed as author in Discord"
+    required: false
+    default: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/1024px-GitHub_Invertocat_Logo.svg.png
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        latest_release=$(curl -s -H "Authorization: token ${{ inputs.github_token }}" \
+          https://api.github.com/repos/${{ github.repository }}/releases/latest)
+        release_tag=$(echo "$latest_release" | jq -r '.tag_name')
+        release_name=$(echo "$latest_release" | jq -r '.name')
+        release_url=$(echo "$latest_release" | jq -r '.html_url')
+        release_body=$(echo "$latest_release" | jq -r '.body')
+
+        payload=$(jq -n \
+          --arg username " ${{ inputs.username }}" \
+          --arg avatar_url ${{ inputs.avatar_url }}" \
+          --arg title "$release_name" \
+          --arg url "$release_url" \
+          --arg description "$release_body" \
+          --arg color "5814783" \
+          '{
+            username: $username,
+            avatar_url: $avatar_url,
+            embeds: [
+              {
+                title: $title,
+                url: $url,
+                description: $description,
+                color: ($color | tonumber)
+              }
+            ]
+          }')
+
+        curl -X POST -H "Content-Type: application/json" -d "$payload" "${{ inputs.webhook }}"
+      shell: bash
